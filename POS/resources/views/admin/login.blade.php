@@ -26,19 +26,24 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="" method="POST">
+            <form action="{{url('adminLogin')}}" method="POST">
+              @csrf
               <h1>Login Form</h1>
               <div>
-                <input type="email" class="form-control" placeholder="Email address" required="required" />
+                <input type="email" class="form-control" placeholder="Email address" required="required" name="email" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="required" />
+                <input type="password" class="form-control" placeholder="Password" required="required" name="password" />
               </div>
+              @if(session()->has('error'))
+                <div class="alert alert-danger alert-dismissible " role="alert">
+                    {{session('error')}}
+                  </div>
+              @endif
               <div>
                 <button type="submit" class="btn btn-primary">Log in</button>
                 <a class="reset_pass" href="javascript:void(0)">Lost your password?</a>
               </div>
-
               <div class="clearfix"></div>
 
             </form>
