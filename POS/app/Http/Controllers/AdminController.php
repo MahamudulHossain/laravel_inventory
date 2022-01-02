@@ -15,7 +15,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.login');
+        if(session()->has('ADMIN_LOGIN')){
+            return redirect('/dashboard');
+        }else{
+            return view('admin.login');
+        }
+        
     }
 
     public function adminLoginProcess(Request $req){
@@ -36,6 +41,7 @@ class AdminController extends Controller
            return redirect('/');
         }
     }
+
 
     public function dashboard(){
         return view('admin.dashboard');

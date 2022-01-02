@@ -20,5 +20,13 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/',[AdminController::class,'index']);
 Route::post('adminLogin',[AdminController::class,'adminLoginProcess']);
+
+Route::group(['middleware'=>'admin_auth'],function () {
+  Route::get('logout', function(){
+    session()->forget('ADMIN_LOGIN');
+    session()->forget('ADMIN_ID');
+    return redirect('/');
+  });
 Route::get('/dashboard',[AdminController::class,'dashboard']);
 
+});
