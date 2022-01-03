@@ -43,5 +43,21 @@ class SuppliersController extends Controller
        return redirect('/view_suppliers');
     }
 
+    public function edit_form(Request $req,$id){
+        $data = Suppliers::find($id);
+        return view('admin.suppliers.edit_supplier',compact('data'));
+    }
+
+    public function update_supplier(Request $req,$id){
+        $supp = Suppliers::find($id);
+        $supp->name = $req->post('name');
+        $supp->mobile_no = $req->post('mobile_no');
+        $supp->email = $req->post('email');
+        $supp->address = $req->post('address');
+        $supp->updated_by = $req->session()->get('ADMIN_ID');
+        $supp->save();
+        $req->session()->flash('message','Supplier Updated Successfully');
+        return redirect('/view_suppliers');
+    }
     
 }

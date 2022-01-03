@@ -41,7 +41,8 @@
 	                    	<td>{{$data->created_by}}</td>
 	                    	<td>{{$data->updated_by}}</td>
 	                    	<td>
-	                    		<button class="btn btn-sm btn-primary">Edit</button>
+	                    		<a href="{{url('editSupplier',$data->id)}}"><button class="btn btn-sm btn-primary">Edit</button></a>
+
 	                    		<a href="{{url('delSupplier',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
 	                    	</td>
 	                    </tr>
