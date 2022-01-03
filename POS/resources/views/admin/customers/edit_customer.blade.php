@@ -1,4 +1,8 @@
-@include('admin.layout.header')
+@extends('admin.layout')
+
+@section('title','Edit Customer')
+
+@section('content')
 
 <div class="row">
 	<div class="col-md-12 col-sm-12 ">
@@ -53,4 +57,4 @@
 
 
 
-@include('admin.layout.footer')
+@endsection

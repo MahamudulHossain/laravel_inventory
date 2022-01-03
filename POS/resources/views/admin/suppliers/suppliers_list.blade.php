@@ -1,4 +1,8 @@
-@include('admin.layout.header')
+@extends('admin.layout')
+
+@section('title','Suppliers List')
+
+@section('content')
 
 <div class="row">
   <div class="col-md-12 col-sm-12 ">
@@ -56,4 +60,5 @@
     </div>
   </div>
 </div>
-@include('admin.layout.footer')
+
+@endsection

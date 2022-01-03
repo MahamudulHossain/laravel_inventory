@@ -1,4 +1,8 @@
-@include('admin.layout.header')
+@extends('admin.layout')
+
+@section('title','Dashboard')
+
+@section('content')
 
 <div class="row" style="display: inline-block;" >
           <div class="tile_count">
@@ -37,4 +41,5 @@
 
 
 
-@include('admin.layout.footer')
+@endsection
+
