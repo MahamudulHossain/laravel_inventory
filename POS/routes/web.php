@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuppliersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,9 @@ Route::group(['middleware'=>'admin_auth'],function () {
     return redirect('/');
   });
 Route::get('/dashboard',[AdminController::class,'dashboard']);
+//Suppliers CRUD
+Route::get('/view_suppliers',[SuppliersController::class,'show']);
+Route::get('/add_suppliers_form',[SuppliersController::class,'add_form']);
+Route::post('addSupplier',[SuppliersController::class,'add_supplier']);
 
 });
