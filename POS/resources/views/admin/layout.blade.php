@@ -71,6 +71,11 @@
                       <li><a href="{{url('view_customers')}}">View Customers</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-clone"></i> Units <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('view_units')}}">View Units</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 

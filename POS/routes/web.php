@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\UnitsController;
 
 
 /*
@@ -45,6 +46,9 @@ Route::post('addCustomer',[CustomersController::class,'add_customer']);
 Route::get('/delCustomer/{id}',[CustomersController::class,'delete']);
 Route::get('/editCustomer/{id}',[CustomersController::class,'edit_form']);
 Route::post('updateCustomer/{id}',[CustomersController::class,'update_customer']);
-
+//Units
+Route::get('/view_units',[UnitsController::class,'show']);
+Route::post('addUnit',[UnitsController::class,'add_unit']);
+Route::get('/delUnit/{id}',[UnitsController::class,'delete']);
 
 });
