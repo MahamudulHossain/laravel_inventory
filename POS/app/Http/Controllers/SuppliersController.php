@@ -36,5 +36,12 @@ class SuppliersController extends Controller
         return redirect('/view_suppliers');
     }
 
+    public function delete(Request $req,$id){
+       $result = Suppliers::find($id);
+       $result->delete();
+       $req->session()->flash('message','Supplier Deleted Successfully');
+       return redirect('/view_suppliers');
+    }
+
     
 }

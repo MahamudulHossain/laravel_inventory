@@ -42,7 +42,7 @@
 	                    	<td>{{$data->updated_by}}</td>
 	                    	<td>
 	                    		<button class="btn btn-sm btn-primary">Edit</button>
-	                    		<button class="btn btn-sm btn-danger">Delete</button>
+	                    		<a href="{{url('delSupplier',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
 	                    	</td>
 	                    </tr>
 	                    @endforeach

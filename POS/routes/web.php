@@ -33,5 +33,7 @@ Route::get('/dashboard',[AdminController::class,'dashboard']);
 Route::get('/view_suppliers',[SuppliersController::class,'show']);
 Route::get('/add_suppliers_form',[SuppliersController::class,'add_form']);
 Route::post('addSupplier',[SuppliersController::class,'add_supplier']);
+Route::get('/delSupplier/{id}',[SuppliersController::class,'delete']);
+
 
 });
