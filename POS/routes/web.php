@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UnitsController;
+use App\Http\Controllers\CategoriesController;
 
 
 /*
@@ -50,5 +51,8 @@ Route::post('updateCustomer/{id}',[CustomersController::class,'update_customer']
 Route::get('/view_units',[UnitsController::class,'show']);
 Route::post('addUnit',[UnitsController::class,'add_unit']);
 Route::get('/delUnit/{id}',[UnitsController::class,'delete']);
-
+//Categories
+Route::get('/view_categories',[CategoriesController::class,'show']);
+Route::post('addCategories',[CategoriesController::class,'add_categories']);
+Route::get('/delCategories/{id}',[CategoriesController::class,'delete']);
 });
