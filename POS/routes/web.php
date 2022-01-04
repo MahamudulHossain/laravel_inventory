@@ -6,6 +6,7 @@ use App\Http\Controllers\SuppliersController;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UnitsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ProductsController;
 
 
 /*
@@ -55,4 +56,11 @@ Route::get('/delUnit/{id}',[UnitsController::class,'delete']);
 Route::get('/view_categories',[CategoriesController::class,'show']);
 Route::post('addCategories',[CategoriesController::class,'add_categories']);
 Route::get('/delCategories/{id}',[CategoriesController::class,'delete']);
+//Products CRUD
+Route::get('/view_products',[ProductsController::class,'show']);
+Route::get('/add_products_form',[ProductsController::class,'add_form']);
+Route::post('addProduct',[ProductsController::class,'add_product']);
+Route::get('/delProduct/{id}',[ProductsController::class,'delete']);
+Route::get('/editProduct/{id}',[ProductsController::class,'edit_form']);
+Route::post('updateProduct/{id}',[ProductsController::class,'update_product']);
 });
