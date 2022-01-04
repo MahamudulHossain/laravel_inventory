@@ -9,9 +9,6 @@ use App\Models\Suppliers;
 use App\Models\Categories;
 use App\Models\Units;
 
-
-
-
 class ProductsController extends Controller
 {
     /**
@@ -59,19 +56,22 @@ class ProductsController extends Controller
     }
 
     public function edit_form(Request $req,$id){
-        $data = Suppliers::find($id);
-        return view('admin.suppliers.edit_supplier',compact('data'));
+        $res['product'] = Products::find($id);
+        $res['supplier'] = Suppliers::all();
+        $res['categories'] = Categories::all();
+        $res['units'] = Units::all();
+        return view('admin.products.edit_product',$res);
     }
 
-    public function update_supplier(Request $req,$id){
-        $supp = Suppliers::find($id);
-        $supp->name = $req->post('name');
-        $supp->mobile_no = $req->post('mobile_no');
-        $supp->email = $req->post('email');
-        $supp->address = $req->post('address');
-        $supp->updated_by = $req->session()->get('ADMIN_ID');
-        $supp->save();
-        $req->session()->flash('message','Supplier Updated Successfully');
-        return redirect('/view_suppliers');
+    public function update_product(Request $req,$id){
+        $pro = Products::find($id);
+        $pro->supplier_id = $req->post('supplier_id');
+        $pro->category_id = $req->post('category_id');
+        $pro->unit_id = $req->post('unit_id');
+        $pro->name = $req->post('name');
+        $pro->updated_by = $req->session()->get('ADMIN_ID');
+        $pro->save();
+        $req->session()->flash('message','Product Updated Successfully');
+        return redirect('/view_products');
     }
 }

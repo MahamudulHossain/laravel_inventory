@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title','Edit Suppliers')
+@section('title','Edit Product')
 
 @section('content')
 
@@ -8,38 +8,54 @@
 	<div class="col-md-12 col-sm-12 ">
 		<div class="x_panel">
 			<div class="x_title">
-				<h2>Edit Suppliers <small>update information about the suppliers</small></h2>
+				<h2>Edit Product <small>update information about the product</small></h2>
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
 				<br />
-				<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{url('updateSupplier',$data->id)}}" method="post">
+				<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{url('updateProduct',$product->id)}}" method="post">
 					@csrf
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Company Name <span class="required">*</span>
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Supplier <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" required="required" class="form-control" name="name" value="{{$data->name}}">
+							<select name="supplier_id" class="form-control" required="required">
+								<option value="">Select Supplier</option>
+								@foreach($supplier as $supplier)
+									<option value="{{$supplier->id}}" {{($product->supplier_id == $supplier->id) ? 'selected':''}}>{{$supplier->name}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mobile Number <span class="required">*</span>
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Category <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" required="required" class="form-control" name="mobile_no" value="{{$data->mobile_no}}">
+							<select name="category_id" class="form-control" required="required">
+								<option value="">Select Category</option>
+								@foreach($categories as $categories)
+									<option value="{{$categories->id}}" {{($product->category_id == $categories->id) ? 'selected':''}}>{{$categories->name}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Email</label>
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Unit <span class="required">*</span>
+						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input  class="form-control" type="email" name="email" value="{{$data->email}}">
+							<select name="unit_id" class="form-control" required="required">
+								<option value="">Select Unit</option>
+								@foreach($units as $units)
+									<option value="{{$units->id}}" {{($product->unit_id == $units->id) ? 'selected':''}}>{{$units->name}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="item form-group">
-						<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Address <span class="required">*</span>
+						<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Product Name <span class="required">*</span>
 						</label>
 						<div class="col-md-6 col-sm-6 ">
-							<input type="text" required="required" class="form-control" name="address" value="{{$data->address}}">
+							<input type="text" required="required" class="form-control" name="name" value="{{$product->name}}">
 						</div>
 					</div>
 					<div class="ln_solid"></div>
