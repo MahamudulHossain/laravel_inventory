@@ -66,7 +66,39 @@
 					    <button type="submit" class="btn btn-success mt-4">+ Add More</button>
 					</div>		
 					<div class="ln_solid"></div>
+
+					<div class="card-body">
+						<form>
+							@csrf
+							<table class="table-sm table-bordered" width="100%"> <thead>
+								<tr>
+									<th>Category</th>
+									<th>Product Name</th>
+									<th width="7%">Pcs/Kg</th>
+									<th width="10%">Unit Price</th>
+									<th>Description</th>
+									<th width="10%">Total Price</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody id="addRow" class="addRow">
+								
+							</tbody>
+							<tbody>
+								<tr>
+									<td colspan="5"></td>
+									<td>
+										<input type="text" name="estimated_amount" value="0" id="estimated_amount" class="form-control form-control-sm text-right estimated_amount" readonly style="background-color: #D8FDBA">
+									</td>
+									<td></td>
+								</tr>
+							</tbody>	
+							</table>
+							<button class="btn btn-primary mt-3">Purchase</button>
+						</form>
+					</div>
 			</div>
+
 		</div>
 	</div>
 </div>
