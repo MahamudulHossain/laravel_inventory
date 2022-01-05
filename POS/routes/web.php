@@ -7,7 +7,8 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UnitsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
-
+use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AjaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,17 @@ Route::post('addProduct',[ProductsController::class,'add_product']);
 Route::get('/delProduct/{id}',[ProductsController::class,'delete']);
 Route::get('/editProduct/{id}',[ProductsController::class,'edit_form']);
 Route::post('updateProduct/{id}',[ProductsController::class,'update_product']);
+
+//Purchase
+Route::get('/view_purchase',[PurchaseController::class,'show']);
+Route::get('/purchase_form',[PurchaseController::class,'add_form']);
+
+Route::post('purchase_now',[PurchaseController::class,'add_product']);
+Route::get('get-category',[AjaxController::class,'getCategory']);
+
+Route::get('/delPurchase/{id}',[PurchaseController::class,'delete']);
+Route::get('/editPurchase/{id}',[PurchaseController::class,'edit_form']);
+Route::post('updatePurchase/{id}',[PurchaseController::class,'update_product']);
+
+
 });
