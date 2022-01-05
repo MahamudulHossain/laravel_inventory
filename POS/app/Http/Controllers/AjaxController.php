@@ -22,4 +22,14 @@ class AjaxController extends Controller
     			  ->get();
         return response()->json(['data'=>$getCatData]);
     }
+
+    public function getProduct(Request $req){
+    	$supId = $req->supId;
+    	$catId = $req->catId;
+    	$getProData = DB::table('products')
+    			  ->select('products.id as proId','products.name as proName')
+    			  ->where(['supplier_id'=>$supId,'category_id'=>$catId])
+    			  ->get();
+        return response()->json(['data'=>$getProData]);
+    }
 }

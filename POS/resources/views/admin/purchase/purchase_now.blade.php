@@ -23,8 +23,6 @@
 			</div>
 			<div class="x_content">
 				<br />
-				<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="{{url('addCustomer')}}" method="post">
-					@csrf
 					<div class="card-columns">
 						<p class="card-para">Date</p>
 					    <div class="card">
@@ -65,11 +63,9 @@
 					        </select>
 					      </div>
 					    </div>
-					    <button type="submit" class="btn btn-success mt-4">Add More</button>
+					    <button type="submit" class="btn btn-success mt-4">+ Add More</button>
 					</div>		
 					<div class="ln_solid"></div>
-
-				</form>
 			</div>
 		</div>
 	</div>
@@ -91,6 +87,25 @@
 			}
 		});
 	});
+
+	$("#category_id").on("change",function(){
+		var supId = $("#supplier_id").val();
+		var catId = $(this).val();
+		$.ajax({
+			url: "{{url('get-product')}}",
+			type: "GET",
+			data: {supId : supId,catId : catId},
+			success: function(result){
+				var html = '<option value="">Select Product</option>';
+				$.each(result.data,function(key,val){
+					html += '<option value="'+val.proId+'">'+val.proName+'</option>';
+				});
+				$("#product_id").html(html);
+			}
+		});
+	});
+
+
 </script>
 
 
