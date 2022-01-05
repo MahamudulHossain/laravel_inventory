@@ -13,6 +13,11 @@
 		font-size: 18px;
 		margin-bottom: -4px;
 	}
+	.errorMsg{
+		color: red;
+		font-weight: bold;
+		font-size: 16px;
+	}
 </style>
 <div class="row">
 	<div class="col-md-12 col-sm-12 ">
@@ -29,6 +34,7 @@
 					      <div class="card-body">
 					        <input type="date" name="date" id="date" class="form-control">
 					      </div>
+					      <div id="dateError" class="errorMsg"></div>
 					    </div>
 					    <p class="card-para">Category Name</p>
 					    <div class="card">
@@ -37,12 +43,14 @@
 					        	<option value="">Select Category</option>
 					        </select>
 					      </div>
+					      <div id="cateError" class="errorMsg"></div>
 					    </div>
 					    <p class="card-para">Purchase Number</p>
 					    <div class="card">
 					      <div class="card-body">
 					        <input type="text" name="purchase_no" id="purchase_no" class="form-control" placeholder="Purchase No">
 					      </div>
+					      <div id="purError" class="errorMsg"></div>
 					    </div>
 					    <p class="card-para">Product Name</p>
 					    <div class="card">
@@ -51,6 +59,7 @@
 					        	<option value="">Select Product</option>
 					        </select>
 					      </div>
+					      <div id="proError" class="errorMsg"></div>
 					    </div>  
 					    <p class="card-para">Supplier Name</p>
 					    <div class="card">
@@ -62,8 +71,9 @@
 								@endforeach
 					        </select>
 					      </div>
+					      <div id="supError" class="errorMsg"></div>
 					    </div>
-					    <button type="submit" class="btn btn-success mt-4">+ Add More</button>
+					    <button type="submit" class="btn btn-success mt-4" id="addMore">+ Add More</button>
 					</div>		
 					<div class="ln_solid"></div>
 
@@ -138,6 +148,35 @@
 	});
 
 
+	$("#addMore").on("click",function(){
+		var date = $("#date").val();
+		var purchase_no = $("#purchase_no").val();
+		var supplier_id = $("#supplier_id").find('option:selected').text();
+		var category_id = $("#category_id").find('option:selected').text();
+		var product_id = $("#product_id").find('option:selected').text();
+		
+		if(date == ''){
+			$("#dateError").html("Date is required");
+			return false;
+		}
+		if(purchase_no == ''){
+			$("#purError").html("Purchase No is required");
+			return false;
+		}
+		if(supplier_id == 'Select Supplier'){
+			$("#supError").html("Supplier is required");
+			return false;
+		}
+		if(category_id == 'Select Category'){
+			$("#cateError").html("Category is required");
+			return false;
+		}
+		if(product_id == 'Select Product'){
+			$("#proError").html("Product Name is required");
+			return false;
+		}
+
+	});
 </script>
 
 
