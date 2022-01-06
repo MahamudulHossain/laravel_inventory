@@ -176,7 +176,31 @@
 			return false;
 		}
 
+		//Creating tablr row
+
+		var tblRow = '<tr><input type="hidden" name="date[]"><input type="hidden" name="purchase_no[]"><input type="hidden" name="supplier_id[]"><td>'+category_id+'</td><td>'+product_id+'</td><td><input type="number" min="1" value="1" onkeyup="changeQty(this)" onclick="chngQty(this)" name="qty[]" class="form-control"></td><td><input type="number" id="unit_price" name="unit_price[]" class="form-control"></td><td><input type="text" id="desc" name="desc[]" class="form-control"></td><td><input type="text" id="total_price" name="total_price[]" class="form-control" readonly="readonly"></td><td><button class="btn btn-danger" onclick="removeMe(this)"> Delete</button></td></tr>';
+		$("#addRow").append(tblRow);
+
+
 	});
+		
+
+		function removeMe(that) {
+	    	$(that).closest('tr').remove();
+		}
+		function changeQty(that){
+			var v = $(that).val();
+			if(v != ''){
+				console.log(v);
+			}
+		}
+		function chngQty(that){
+			var v = $(that).val();
+			if(v != ''){
+				console.log(v);
+			}
+		}
+
 </script>
 
 
