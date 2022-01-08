@@ -24,6 +24,9 @@
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Purchase <small>provide information about the purchase</small></h2>
+				@if(session()->has('error'))
+					<div style="float: right; color: red; font-size: 18px;">{{session()->get('error')}}</div>
+				@endif
 				<div class="clearfix"></div>
 			</div>
 			<div class="x_content">
@@ -78,7 +81,7 @@
 					<div class="ln_solid"></div>
 
 					<div class="card-body">
-						<form>
+						<form action="{{url('purchase_now')}}" method="post">
 							@csrf
 							<table class="table-sm table-bordered" width="100%"> <thead>
 								<tr>
@@ -104,7 +107,7 @@
 								</tr>
 							</tbody>	
 							</table>
-							<button class="btn btn-primary mt-3">Purchase</button>
+							<button class="btn btn-primary mt-3" type="submit">Purchase</button>
 						</form>
 					</div>
 			</div>
@@ -151,9 +154,12 @@
 	$("#addMore").on("click",function(){
 		var date = $("#date").val();
 		var purchase_no = $("#purchase_no").val();
-		var supplier_id = $("#supplier_id").find('option:selected').text();
-		var category_id = $("#category_id").find('option:selected').text();
-		var product_id = $("#product_id").find('option:selected').text();
+		var supplier_id = $("#supplier_id").find('option:selected').val();
+		var category_id = $("#category_id").find('option:selected').val();
+		var category_nm = $("#category_id").find('option:selected').text();
+		var product_id = $("#product_id").find('option:selected').val();
+		var product_nm = $("#product_id").find('option:selected').text();
+
 		
 		if(date == ''){
 			$("#dateError").html("Date is required");
@@ -178,7 +184,7 @@
 
 		//Creating tablr row
 
-		var tblRow = '<tr><input type="hidden" name="date[]"><input type="hidden" name="purchase_no[]"><input type="hidden" name="supplier_id[]"><td>'+category_id+'</td><td>'+product_id+'</td><td><input type="number" min="1" value="1" name="buying_qty[]" class="form-control buying_qty"></td><td><input type="number" id="unit_price" name="unit_price[]" class="form-control unit_price"></td><td><input type="text" id="desc" name="desc[]" class="form-control"></td><td><input type="text" id="buying_price" name="buying_price[]" class="form-control buying_price" readonly="readonly"></td><td><button class="btn btn-danger" onclick="removeMe(this)"> Delete</button></td></tr>';
+		var tblRow = '<tr><td><input type="hidden" name="date[]" value="'+date+'"><input type="hidden" name="purchase_no[]" value="'+purchase_no+'"><input type="hidden" name="supplier_id[]" value="'+supplier_id+'"><input type="hidden" name="category_id[]" value="'+category_id+'"><input type="hidden" name="product_id[]" value="'+product_id+'"></td></tr><tr><td><input type="text" value="'+category_nm+'" readonly="readonly" class="form-control"></td><td><input type="text" value="'+product_nm+'" readonly="readonly" class="form-control"></td><td><input type="number" min="1" value="1" name="buying_qty[]" class="form-control buying_qty"></td><td><input type="number" id="unit_price" name="unit_price[]" class="form-control unit_price"></td><td><input type="text" id="desc" name="desc[]" class="form-control"></td><td><input type="text" id="buying_price" name="buying_price[]" class="form-control buying_price" readonly="readonly"></td><td><button class="btn btn-danger" onclick="removeMe(this)"> Delete</button></td></tr>';
 		$("#addRow").append(tblRow);
 
 

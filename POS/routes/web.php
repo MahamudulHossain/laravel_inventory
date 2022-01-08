@@ -69,7 +69,7 @@ Route::post('updateProduct/{id}',[ProductsController::class,'update_product']);
 Route::get('/view_purchase',[PurchaseController::class,'show']);
 Route::get('/purchase_form',[PurchaseController::class,'add_form']);
 
-Route::post('purchase_now',[PurchaseController::class,'add_product']);
+Route::post('purchase_now',[PurchaseController::class,'purchase_now']);
 Route::get('get-category',[AjaxController::class,'getCategory']);
 Route::get('get-product',[AjaxController::class,'getProduct']);
 

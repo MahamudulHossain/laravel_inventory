@@ -24,23 +24,26 @@
 					<table id="datatable" class="table table-striped table-bordered" style="width:100%">
 	                  <thead>
 	                    <tr>
-	                      <th>Supplier</th>
-	                      <th>Category</th>
-	                      <th>Unit</th>
-	                      <th>Product Name</th>
 	                      <th>Purchase No</th>
 	                      <th>Date</th>
-	                      <th>Unit Price</th>
-	                      <th>Buying price</th>
-	                      <th>Description</th>
-	                      <th>Created By</th>
-	                      <th>Updated By</th>
+	                      <th>Product Name</th>
+	                      <th>Unit</th>
 	                      <th>Action</th>
 	                    </tr>
 	                  </thead>
 
-
-	                 
+	                  @foreach($allData as $data)
+	                  <tr>
+	                  	<td>{{$data->purchase_no}}</td>
+                    	<td>{{$data->date}}</td>
+                    	<td>{{$data->product_id}}</td>
+                    	<td></td>
+                    	<td>
+                    		<button class="btn btn-info">Edit</button>
+                    		<button class="btn btn-danger">Delete</button>
+                    	</td>
+                    </tr>	
+	                  @endforeach
 	                </table>
 			  </div>
               </div>

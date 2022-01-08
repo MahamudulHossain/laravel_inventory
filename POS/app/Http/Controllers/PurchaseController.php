@@ -20,16 +20,8 @@ class PurchaseController extends Controller
      */
     public function show()
     {
-        // $query = DB::table('products');
-        // $query = $query->leftJoin('suppliers','suppliers.id' ,'=','products.supplier_id');
-        // $query = $query->leftJoin('categories','categories.id' ,'=','products.category_id');
-        // $query = $query->leftJoin('units','units.id' ,'=','products.unit_id');
-        // $query = $query->select('products.*','suppliers.name as sname','categories.name as catname','units.name as uname');
-        // $query = $query->orderBy('products.id','DESC');
-        // $query = $query->get();
-        // $result['data'] =  $query;
-        // return view('admin.purchase.purchase_list',$result);
-        return view('admin.purchase.purchase_list');
+        $allData = Purchase::all();
+        return view('admin.purchase.purchase_list',compact('allData'));
     }
 
     public function add_form(){
@@ -39,16 +31,31 @@ class PurchaseController extends Controller
         return view('admin.purchase.purchase_now',$data);
     }
 
-    public function add_product(Request $req){
-        $supp = new Products;
-        $supp->supplier_id = $req->post('supplier_id');
-        $supp->category_id = $req->post('category_id');
-        $supp->unit_id = $req->post('unit_id');
-        $supp->name = $req->post('name');
-        $supp->created_by = $req->session()->get('ADMIN_ID');
-        $supp->save();
-        $req->session()->flash('message','Product Added Successfully');
-        return redirect('/view_products');
+    public function purchase_now(Request $req){
+
+        $category_id = $req->category_id;
+        if($category_id > 0){
+             for($i=0; $i < count($req->category_id); $i++){
+                 $data = new Purchase();
+                 $data->supplier_id = $req->supplier_id[$i];
+                 $data->category_id = $req->category_id[$i];
+                 $data->product_id = $req->product_id[$i];
+                 $data->purchase_no = $req->purchase_no[$i];
+                 $data->date = date('Y-m-d',strtotime($req->date[$i]));
+                 $data->description = $req->desc[$i];
+                 $data->buying_qty = $req->buying_qty[$i];
+                 $data->unit_price = $req->unit_price[$i];
+                 $data->buying_price = $req->buying_price[$i];
+                 $data->status = '0';
+                 $data->created_by = $req->session()->get('ADMIN_ID');
+                 $data->save();
+             }
+            $req->session()->flash('message','Purchase list updated');
+            return redirect('/view_purchase'); 
+        }else{
+             $req->session()->flash('error','Please! Buy atleast one product'); 
+            return redirect()->back();
+        }
     }
 
     public function delete(Request $req,$id){
