@@ -58,14 +58,14 @@
                       <td>{{$data->buying_price}}</td>
                     	<td>
                         @if($data->status == '0')
-                          <button class="btn btn-warning btn-sm" disabled>Pending</button>
+                          <a href="{{url('updateStatus',$data->id)}}"><button class="btn btn-warning btn-sm">Pending</button></a>
                         @else
                           <button class="btn btn-success btn-sm" disabled>Approved</button>  
                         @endif
                       </td>
                     	<td>
                         @if($data->status == '0')
-                    		<button class="btn btn-danger btn-sm">Delete</button>
+                    		<a href="{{url('delPurchase',$data->id)}}"><button class="btn btn-danger btn-sm">Delete</button></a>
                         @endif
                     	</td>
                     </tr>	

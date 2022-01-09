@@ -60,30 +60,19 @@ class PurchaseController extends Controller
     }
 
     public function delete(Request $req,$id){
-       $result = Products::find($id);
+       $result = Purchase::find($id);
        $result->delete();
-       $req->session()->flash('message','Product Deleted Successfully');
-       return redirect('/view_products');
+       $req->session()->flash('message','Item Deleted Successfully');
+       return redirect('/view_purchase');
     }
+ 
 
-    public function edit_form(Request $req,$id){
-        $res['product'] = Products::find($id);
-        $res['supplier'] = Suppliers::all();
-        $res['categories'] = Categories::all();
-        $res['units'] = Units::all();
-        return view('admin.products.edit_product',$res);
-    }
-
-    public function update_product(Request $req,$id){
-        $pro = Products::find($id);
-        $pro->supplier_id = $req->post('supplier_id');
-        $pro->category_id = $req->post('category_id');
-        $pro->unit_id = $req->post('unit_id');
-        $pro->name = $req->post('name');
-        $pro->updated_by = $req->session()->get('ADMIN_ID');
-        $pro->save();
-        $req->session()->flash('message','Product Updated Successfully');
-        return redirect('/view_products');
+    public function update_status(Request $req,$id){
+        $res = DB::table('purchases')
+               ->where('id',$id)
+               ->update(['status' => '1']);
+        $req->session()->flash('message','Item Approved Successfully');
+       return redirect('/view_purchase');       
     }
     
 }

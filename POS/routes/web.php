@@ -74,8 +74,7 @@ Route::get('get-category',[AjaxController::class,'getCategory']);
 Route::get('get-product',[AjaxController::class,'getProduct']);
 
 Route::get('/delPurchase/{id}',[PurchaseController::class,'delete']);
-Route::get('/editPurchase/{id}',[PurchaseController::class,'edit_form']);
-Route::post('updatePurchase/{id}',[PurchaseController::class,'update_product']);
+Route::get('updateStatus/{id}',[PurchaseController::class,'update_status']);
 
 
 });
