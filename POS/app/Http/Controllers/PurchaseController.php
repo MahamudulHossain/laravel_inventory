@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Purchase;
+use App\Models\Products;
+use App\Models\Suppliers;
+use App\Models\Categories;
+use App\Models\Units;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -68,9 +72,17 @@ class PurchaseController extends Controller
  
 
     public function update_status(Request $req,$id){
-        $res = DB::table('purchases')
-               ->where('id',$id)
-               ->update(['status' => '1']);
+        //Updating qty in product table
+        $purchase = Purchase::find($id);
+        $product = Products::where('id',$purchase->product_id)->first();
+        $product_qty = (($product->quantity) + ($purchase->buying_qty));
+        $product->quantity = $product_qty;
+        if($product->save()){
+            //Updating purchase status
+            $res = DB::table('purchases')
+                   ->where('id',$id)
+                   ->update(['status' => '1']);
+        } 
         $req->session()->flash('message','Item Approved Successfully');
        return redirect('/view_purchase');       
     }

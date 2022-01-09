@@ -46,10 +46,14 @@
 	                    	<td>{{$data->quantity}}</td>
 	                    	<td>{{$data->created_by}}</td>
 	                    	<td>{{$data->updated_by}}</td>
+	                    	<?php
+	                    		$productChk = App\Models\Purchase::where('product_id',$data->id)->count();
+	                    	?>
 	                    	<td>
 	                    		<a href="{{url('editProduct',$data->id)}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-
+	                    		@if($productChk<1)
 	                    		<a href="{{url('delProduct',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
+	                    		@endif
 	                    	</td>
 	                    </tr>
 	                    @endforeach

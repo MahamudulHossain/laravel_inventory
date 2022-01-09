@@ -50,8 +50,13 @@
 	                    <tr>
 	                    	<td>{{$data->name}}</td>
 	                    	<td>{{$data->created_by}}</td>
+	                    	<?php
+	                    		$unitChk = App\Models\Products::where('unit_id',$data->id)->count();
+	                    	?>
 	                    	<td>
+	                    		@if($unitChk<1)
 	                    		<a href="{{url('delUnit',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
+	                    		@endif
 	                    	</td>
 	                    </tr>
 	                    @endforeach

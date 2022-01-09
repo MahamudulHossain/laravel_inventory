@@ -58,7 +58,7 @@
                       <td>{{$data->buying_price}}</td>
                     	<td>
                         @if($data->status == '0')
-                          <a href="{{url('updateStatus',$data->id)}}"><button class="btn btn-warning btn-sm">Pending</button></a>
+                          <a title="Approve" href="{{url('updateStatus',$data->id)}}"><button class="btn btn-warning btn-sm">Pending</button></a>
                         @else
                           <button class="btn btn-success btn-sm" disabled>Approved</button>  
                         @endif

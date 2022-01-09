@@ -44,10 +44,14 @@
 	                    	<td>{{$data->address}}</td>
 	                    	<td>{{$data->created_by}}</td>
 	                    	<td>{{$data->updated_by}}</td>
+	                    	<?php
+	                    		$supplierChk = App\Models\Products::where('supplier_id',$data->id)->count();
+	                    	?>
 	                    	<td>
 	                    		<a href="{{url('editSupplier',$data->id)}}"><button class="btn btn-sm btn-primary">Edit</button></a>
-
+	                    		@if($supplierChk<1)
 	                    		<a href="{{url('delSupplier',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
+	                    		@endif
 	                    	</td>
 	                    </tr>
 	                    @endforeach

@@ -50,8 +50,13 @@
 	                    <tr>
 	                    	<td>{{$data->name}}</td>
 	                    	<td>{{$data->created_by}}</td>
+	                    	<?php
+	                    		$categoryChk = App\Models\Products::where('category_id',$data->id)->count();
+	                    	?>
 	                    	<td>
+	                    		@if($categoryChk<1)
 	                    		<a href="{{url('delCategories',$data->id)}}"><button class="btn btn-sm btn-danger">Delete</button></a>
+	                    		@endif
 	                    	</td>
 	                    </tr>
 	                    @endforeach
