@@ -26,8 +26,14 @@
 	                    <tr>
 	                      <th>Purchase No</th>
 	                      <th>Date</th>
-	                      <th>Product Name</th>
-	                      <th>Unit</th>
+                        <th>Supplier Name</th>
+                        <th>Category</th>
+                        <th>Product Name</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+	                      <th>Unit Price</th>
+	                      <th>Buying Price</th>
+                        <th>Status</th>
 	                      <th>Action</th>
 	                    </tr>
 	                  </thead>
@@ -36,11 +42,31 @@
 	                  <tr>
 	                  	<td>{{$data->purchase_no}}</td>
                     	<td>{{$data->date}}</td>
-                    	<td>{{$data->product_id}}</td>
-                    	<td></td>
+                      <td>{{$data->supNm}}</td>
+                      <td>{{$data->catNm}}</td>
+                      <td>{{$data->proNm}}</td>
+                      <td>{{$data->description}}</td>
+                      <td>
+                        <?php
+                          $getUnit = getUnitId($data->product_id);
+                          $getUnitName = getUnitName($getUnit['0']->uid);
+                        ?>
+
+                        {{$data->buying_qty}} {{$getUnitName['0']->name}}
+                      </td>
+                      <td>{{$data->unit_price}}</td>
+                      <td>{{$data->buying_price}}</td>
                     	<td>
-                    		<button class="btn btn-info">Edit</button>
-                    		<button class="btn btn-danger">Delete</button>
+                        @if($data->status == '0')
+                          <button class="btn btn-warning btn-sm" disabled>Pending</button>
+                        @else
+                          <button class="btn btn-success btn-sm" disabled>Approved</button>  
+                        @endif
+                      </td>
+                    	<td>
+                        @if($data->status == '0')
+                    		<button class="btn btn-danger btn-sm">Delete</button>
+                        @endif
                     	</td>
                     </tr>	
 	                  @endforeach

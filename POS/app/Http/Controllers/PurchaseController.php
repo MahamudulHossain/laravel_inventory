@@ -4,10 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Purchase;
 use Illuminate\Http\Request;
-use App\Models\Products;
-use App\Models\Suppliers;
-use App\Models\Categories;
-use App\Models\Units;
 use Illuminate\Support\Facades\DB;
 
 
@@ -20,7 +16,12 @@ class PurchaseController extends Controller
      */
     public function show()
     {
-        $allData = Purchase::all();
+        $allData = DB::table('purchases')
+                   ->join('Suppliers','Suppliers.id','=','purchases.supplier_id') 
+                   ->join('Categories','Categories.id','=','purchases.category_id') 
+                   ->join('products','products.id','=','purchases.product_id')
+                   ->select('purchases.*','Suppliers.name as supNm','Categories.name as catNm','products.name as proNm') 
+                   ->get();
         return view('admin.purchase.purchase_list',compact('allData'));
     }
 
