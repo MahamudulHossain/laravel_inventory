@@ -87,8 +87,7 @@
 									<th>Product Name</th>
 									<th width="7%">Pcs/Kg</th>
 									<th width="10%">Unit Price</th>
-									<th>Description</th>
-									<th width="10%">Total Price</th>
+									<th width="15%">Total Price</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -97,7 +96,14 @@
 							</tbody>
 							<tbody>
 								<tr>
-									<td colspan="5"></td>
+									<td colspan="4"></td>
+									<td>
+									<input type="text" name="discount_amount" id="discount_amount" placeholder="Discount amount" class="form-control form-control-sm discount_amount mt-2">
+									</td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="4"><textarea name="description" class="form-control description" id="description" placeholder="Add description...."></textarea></td>
 									<td>
 										<input type="text" name="estimated_amount" value="0" id="estimated_amount" class="form-control form-control-sm text-right estimated_amount" readonly style="background-color: #D8FDBA">
 									</td>
@@ -105,6 +111,19 @@
 								</tr>
 							</tbody>	
 							</table>
+							<div class="mt-3">
+								<p class="card-para">Payment Type</p> 
+								<select name="paid_status" class="form-control col-md-3 paid_status" id="paid_status">
+									<option value="">Select payment type</option>
+									<option value="paid">Paid</option>
+									<option value="due">Due</option>
+									<option value="partital_paid">Partital Paid</option>
+								</select>
+							</div>
+							<div class="col-md-3 mt-2 paid_amount_div" style="display: none;">
+								<input type="text" name="paid_amount" class="form-control form-control-sm paid_amount" id="paid_amount" placeholder="Enter the paid amount">
+							</div>
+							<br/><br/><br/>
 							<button class="btn btn-primary mt-3" type="submit">Purchase</button>
 						</form>
 					</div>
@@ -145,8 +164,7 @@
 
 	$("#addMore").on("click",function(){
 		var date = $("#date").val();
-		var purchase_no = $("#purchase_no").val();
-		var supplier_id = $("#supplier_id").find('option:selected').val();
+		var invoice_number = $("#invoice_number").val();
 		var category_id = $("#category_id").find('option:selected').val();
 		var category_nm = $("#category_id").find('option:selected').text();
 		var product_id = $("#product_id").find('option:selected').val();
@@ -155,14 +173,6 @@
 		
 		if(date == ''){
 			$("#dateError").html("Date is required");
-			return false;
-		}
-		if(purchase_no == ''){
-			$("#purError").html("Purchase No is required");
-			return false;
-		}
-		if(supplier_id == 'Select Supplier'){
-			$("#supError").html("Supplier is required");
 			return false;
 		}
 		if(category_id == 'Select Category'){
@@ -176,7 +186,7 @@
 
 		//Creating tablr row
 
-		var tblRow = '<tr><td><input type="hidden" name="date[]" value="'+date+'"><input type="hidden" name="purchase_no[]" value="'+purchase_no+'"><input type="hidden" name="supplier_id[]" value="'+supplier_id+'"><input type="hidden" name="category_id[]" value="'+category_id+'"><input type="hidden" name="product_id[]" value="'+product_id+'"></td></tr><tr><td><input type="text" value="'+category_nm+'" readonly="readonly" class="form-control"></td><td><input type="text" value="'+product_nm+'" readonly="readonly" class="form-control"></td><td><input type="number" min="1" value="1" name="buying_qty[]" class="form-control buying_qty"></td><td><input type="number" id="unit_price" name="unit_price[]" class="form-control unit_price"></td><td><input type="text" id="desc" name="desc[]" class="form-control"></td><td><input type="text" id="buying_price" name="buying_price[]" class="form-control buying_price" readonly="readonly"></td><td><button class="btn btn-danger" onclick="removeMe(this)"> Delete</button></td></tr>';
+		var tblRow = '<tr><td><input type="hidden" name="date" value="'+date+'"><input type="hidden" name="invoice_number" value="'+invoice_number+'"><input type="hidden" name="category_id[]" value="'+category_id+'"><input type="hidden" name="product_id[]" value="'+product_id+'"></td></tr><tr><td><input type="text" value="'+category_nm+'" readonly="readonly" class="form-control"></td><td><input type="text" value="'+product_nm+'" readonly="readonly" class="form-control"></td><td><input type="number" min="1" value="1" name="selling_qty[]" class="form-control selling_qty"></td><td><input type="number" id="unit_price" name="unit_price[]" class="form-control unit_price"></td><td><input type="text" id="selling_price" name="selling_price[]" class="form-control selling_price" readonly="readonly"></td><td><button class="btn btn-danger" onclick="removeMe(this)"> Delete</button></td></tr>';
 		$("#addRow").append(tblRow);
 
 
@@ -188,23 +198,34 @@
 	    	totalAmountPrice();
 		}
 
-		$(document).on('keyup click','.unit_price,.buying_qty',function(){
-			var buying_qty = $(this).closest("tr").find("input.buying_qty").val();
+		$(document).on('keyup click','.unit_price,.selling_qty',function(){
+			var selling_qty = $(this).closest("tr").find("input.selling_qty").val();
 			var unit_price = $(this).closest("tr").find("input.unit_price").val();
-			var total = buying_qty*unit_price;
-			$(this).closest("tr").find("input.buying_price").val(total);
+			var total = selling_qty*unit_price;
+			$(this).closest("tr").find("input.selling_price").val(total);
+			//$("#discount_amount").trigger('keyup');
+			totalAmountPrice();
+
+		});
+
+		$(document).on('keyup',"#discount_amount",function(){
 			totalAmountPrice();
 		});
 
 		//Calculate sum of total Amount
 		function totalAmountPrice(){
 			var sum=0;
-			$(".buying_price").each(function(){
+			$(".selling_price").each(function(){
 				var value = $(this).val();
 				if(!isNaN(value) && value.length !=0){
 					sum += parseFloat(value);
-				}
+				}	
 			});
+
+			var discount_amount = $("#discount_amount").val();
+			if(!isNaN(discount_amount) && discount_amount.length !=0){
+					sum -= parseFloat(discount_amount);
+				}
 			$('#estimated_amount').val(sum);
 		}
 		
