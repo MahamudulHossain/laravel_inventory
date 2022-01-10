@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title','Edit Customer')
+@section('title','Edit Purchase')
 
 @section('content')
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,13 +69,13 @@ Route::post('updateProduct/{id}',[ProductsController::class,'update_product']);
 //Purchase
 Route::get('/view_purchase',[PurchaseController::class,'show']);
 Route::get('/purchase_form',[PurchaseController::class,'add_form']);
-
 Route::post('purchase_now',[PurchaseController::class,'purchase_now']);
 Route::get('get-category',[AjaxController::class,'getCategory']);
 Route::get('get-product',[AjaxController::class,'getProduct']);
-
 Route::get('/delPurchase/{id}',[PurchaseController::class,'delete']);
 Route::get('updateStatus/{id}',[PurchaseController::class,'update_status']);
 
-
+//Invoice
+Route::get('/view_invoice',[InvoiceController::class,'show']);
+Route::get('/invoice_form',[InvoiceController::class,'add_form']);
 });

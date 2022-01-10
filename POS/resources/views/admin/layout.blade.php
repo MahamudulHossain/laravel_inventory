@@ -92,6 +92,11 @@
                       <li><a href="{{url('view_purchase')}}">Purchase List</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-sticky-note-o"></i> Invoice <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('view_invoice')}}">Invoice List</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
