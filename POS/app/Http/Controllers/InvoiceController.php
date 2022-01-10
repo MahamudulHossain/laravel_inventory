@@ -13,6 +13,8 @@ use App\Models\Payment;
 use App\Models\PaymentDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\CustomersController;
+
 
 class InvoiceController extends Controller
 {
@@ -23,6 +25,7 @@ class InvoiceController extends Controller
     }
     public function add_form(){
         $data['categories'] = Categories::all();
+        $data['customers'] = DB::table('customers')->get();
         $invoiceData = Invoice::orderBy('id','desc')->first();
         if($invoiceData == null){
         	$invoiceReg = '0';

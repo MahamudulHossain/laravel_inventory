@@ -50,7 +50,7 @@
 					      <p class="card-para">Category Name</p>
 					      <div class="card-body">
 					        <select name="category_id" id="category_id" class="form-control">
-					        	<option value="">Select Category</option>
+					        	<option value="0">Select Category</option>
 					        	@foreach($categories as $categories)
 									<option value="{{$categories->id}}">{{$categories->name}}</option>
 								@endforeach
@@ -120,8 +120,16 @@
 									<option value="partital_paid">Partital Paid</option>
 								</select>
 							</div>
-							<div class="col-md-3 mt-2 paid_amount_div" style="display: none;">
-								<input type="text" name="paid_amount" class="form-control form-control-sm paid_amount" id="paid_amount" placeholder="Enter the paid amount">
+							<div class="col-md-3 mt-2">
+								<input type="text" name="paid_amount" class="form-control form-control-sm paid_amount" id="paid_amount" placeholder="Enter the paid amount" style="display: none;">
+							</div>
+							<div class="col-md-6">
+								<select class="form-control">
+									<option value="">Select Customer</option>
+									@foreach($customers as $customers)
+									<option value="{{$customers->id}}">{{$customers->name}}</option>
+									@endforeach
+								</select>
 							</div>
 							<br/><br/><br/>
 							<button class="btn btn-primary mt-3" type="submit">Purchase</button>
@@ -174,14 +182,20 @@
 		if(date == ''){
 			$("#dateError").html("Date is required");
 			return false;
+		}else{
+			$("#dateError").html("");
 		}
-		if(category_id == 'Select Category'){
+		if(category_id == '0'){
 			$("#cateError").html("Category is required");
 			return false;
+		}else{
+			$("#cateError").html("");
 		}
-		if(product_id == 'Select Product'){
+		if(product_nm == 'Select Product'){
 			$("#proError").html("Product Name is required");
 			return false;
+		}else{
+			$("#proError").html("");
 		}
 
 		//Creating tablr row
@@ -228,6 +242,15 @@
 				}
 			$('#estimated_amount').val(sum);
 		}
+
+		$("#paid_status").on('change',function(){
+			$paid_status = $(this).val();
+			if($paid_status == 'partital_paid'){
+				$("#paid_amount").show();
+			}else{
+				$("#paid_amount").hide();
+			}
+		});
 		
 
 
