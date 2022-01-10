@@ -24,12 +24,20 @@ class AjaxController extends Controller
     }
 
     public function getProduct(Request $req){
-    	$supId = $req->supId;
     	$catId = $req->catId;
     	$getProData = DB::table('products')
     			  ->select('products.id as proId','products.name as proName')
-    			  ->where(['supplier_id'=>$supId,'category_id'=>$catId])
+    			  ->where(['category_id'=>$catId])
     			  ->get();
         return response()->json(['data'=>$getProData]);
     }
+
+    public function getStoke(Request $req){
+        $proId = $req->proId;
+        $stokeChk = Products::where('id',$proId)->first()->quantity;
+        return response()->json(['data'=>$stokeChk]);
+        
+    }
+
+    
 }

@@ -21,5 +21,17 @@ class InvoiceController extends Controller
         $allData = Invoice::get();
         return view('admin.invoice.invoice_list',compact('allData'));
     }
+    public function add_form(){
+        $data['categories'] = Categories::all();
+        $invoiceData = Invoice::orderBy('id','desc')->first();
+        if($invoiceData == null){
+        	$invoiceReg = '0';
+        	$data['invoice_no'] = $invoiceReg+1;
+        }else{
+	        $invoiceData = Invoice::orderBy('id','desc')->first()->invoice_no;
+        	$data['invoice_no'] = $invoiceData+1;
+        }
+    	return view('admin.invoice.add_form',$data);
+    }
 
 }

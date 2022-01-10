@@ -78,4 +78,7 @@ Route::get('updateStatus/{id}',[PurchaseController::class,'update_status']);
 //Invoice
 Route::get('/view_invoice',[InvoiceController::class,'show']);
 Route::get('/invoice_form',[InvoiceController::class,'add_form']);
+Route::get('get-stoke',[AjaxController::class,'getStoke']);
+
+
 });
