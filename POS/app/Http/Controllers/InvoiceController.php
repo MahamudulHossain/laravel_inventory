@@ -107,8 +107,26 @@ class InvoiceController extends Controller
     			});
     		}
     		$req->session()->flash('message','Invoice created successfully');
-    		return redirect('/view_invoice');
+    		return redirect('/approve_invoice');
     	}
     }
 
+    public function approveInvoiceView(){
+    	$allData = DB::table('invoices')
+        		   ->join('payments','payments.invoice_id','=','invoices.invoice_no')
+        		   ->join('customers','customers.id','=','payments.customer_id')
+        		   ->select('invoices.*','customers.name as cName','payments.total_amount')
+        		   ->where('invoices.status','0')
+        		   ->get();
+    	return view('admin.invoice.approveInvoiceView',compact('allData'));
+    }
+
+    public function delete(Request $req,$id){
+    	Invoice::where('invoice_no',$id)->delete();
+    	InvoiceDetail::where('invoice_id',$id)->delete();
+    	Payment::where('invoice_id',$id)->delete();
+    	PaymentDetail::where('invoice_id',$id)->delete();
+    	$req->session()->flash('message','Invoice Deleted successfully');
+    	return redirect('/approve_invoice');
+    }
 }
