@@ -20,7 +20,12 @@ class InvoiceController extends Controller
 {
     public function show()
     {
-        $allData = Invoice::get();
+        $allData = DB::table('invoices')
+        		   ->join('payments','payments.invoice_id','=','invoices.invoice_no')
+        		   ->join('customers','customers.id','=','payments.customer_id')
+        		   ->select('invoices.*','customers.name as cName','payments.total_amount')
+        		   ->where('invoices.status','1')
+        		   ->get();
         return view('admin.invoice.invoice_list',compact('allData'));
     }
     public function add_form(){

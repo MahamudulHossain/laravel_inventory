@@ -28,22 +28,21 @@
 	                      <th>Invoice No.</th>
 	                      <th>Date</th>
 	                      <th>Description</th>
-	                      <th>Action</th>
+	                      <th>Amount</th>
 	                    </tr>
 	                  </thead>
 
 
 	                  <tbody>
-	                    <tr>
-	                    	<td>Mahamudul</td>
-	                    	<td>RR-22</td>
-	                    	<td>10-01-2022</td>
-	                    	<td>Dummy Content</td>
-	                    	<td>
-	                    		<a href="javascript:void(0)"><button class="btn btn-sm btn-primary">Edit</button></a>
-	                    		<a href="javascript:void(0)"><button class="btn btn-sm btn-danger">Delete</button></a>
-	                    	</td>
-	                    </tr>
+	                  	@foreach($allData as $data)
+	                    	<tr>
+		                    	<td>{{$data->cName}}</td>
+		                    	<td>Invoice No #{{$data->invoice_no}}</td>
+		                    	<td>{{date('d-m-Y',strtotime($data->date))}}</td>
+		                    	<td>{{$data->description}}</td>
+		                    	<td>{{$data->total_amount}}</td>
+	                    	</tr>
+	                    @endforeach	
 	                  </tbody>
 	                </table>
 			  </div>
