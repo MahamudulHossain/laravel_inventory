@@ -42,7 +42,7 @@
 					    <div class="card">
 						<p class="card-para">Date</p>
 					      <div class="card-body">
-					        <input type="date" name="date" id="date" class="form-control">
+					        <input type="date" name="date" id="date" class="form-control" value="{{$current_date}}">
 					      </div>
 					      <div id="dateError" class="errorMsg"></div>
 					    </div>
@@ -79,7 +79,7 @@
 					<div class="ln_solid"></div>
 
 					<div class="card-body">
-						<form action="{{url('purchase_now')}}" method="post">
+						<form action="{{url('store_invoice')}}" method="post">
 							@csrf
 							<table class="table-sm table-bordered" width="100%"> <thead>
 								<tr>
@@ -113,7 +113,7 @@
 							</table>
 							<div class="mt-3">
 								<p class="card-para">Payment Type</p> 
-								<select name="paid_status" class="form-control col-md-3 paid_status" id="paid_status">
+								<select name="paid_status" class="form-control col-md-3 paid_status" id="paid_status" required="required">
 									<option value="">Select payment type</option>
 									<option value="paid">Paid</option>
 									<option value="due">Due</option>
@@ -124,7 +124,7 @@
 								<input type="text" name="paid_amount" class="form-control form-control-sm paid_amount" id="paid_amount" placeholder="Enter the paid amount" style="display: none;">
 							</div>
 							<div class="col-md-6">
-								<select class="form-control">
+								<select class="form-control" required="required" name="customer_id">
 									<option value="">Select Customer</option>
 									@foreach($customers as $customers)
 									<option value="{{$customers->id}}">{{$customers->name}}</option>
@@ -179,12 +179,7 @@
 		var product_nm = $("#product_id").find('option:selected').text();
 
 		
-		if(date == ''){
-			$("#dateError").html("Date is required");
-			return false;
-		}else{
-			$("#dateError").html("");
-		}
+		
 		if(category_id == '0'){
 			$("#cateError").html("Category is required");
 			return false;
