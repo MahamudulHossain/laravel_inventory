@@ -42,6 +42,7 @@
 		                    	<td>{{$data->description}}</td>
 		                    	<td>{{$data->total_amount}}</td>
 		                    	<td>
+		                    		<a href="{{url('approveInvoiceForm',$data->invoice_no)}}"><button class="btn btn-info btn-sm">Approve</button></a>
 		                    		<a href="{{url('delInvoice',$data->invoice_no)}}"><button class="btn btn-danger btn-sm">Delete</button></a>
 		                    	</td>
 	                    	</tr>

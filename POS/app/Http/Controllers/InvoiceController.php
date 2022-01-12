@@ -129,4 +129,17 @@ class InvoiceController extends Controller
     	$req->session()->flash('message','Invoice Deleted successfully');
     	return redirect('/approve_invoice');
     }
+
+    public function approveInvoiceForm($id){
+
+    	$allData['data'] = Invoice::where('invoice_no',$id)->first();
+    	$allData['details'] = DB::table('invoices') 
+    						  ->join('invoice_details','invoice_details.invoice_id','=','invoices.invoice_no')
+    						  ->join('payments','payments.invoice_id','=','invoices.invoice_no')
+    						  ->select('invoice_details.category_id as catID','invoice_details.product_id as proID','invoice_details.selling_qty as sQuan','invoice_details.unit_price as uPrice','invoice_details.selling_price as sPrice','payments.paid_amount as pAmount','payments.due_amount as dueAmount','payments.total_amount as tAmount','payments.discount_amount as disAmount')
+    						  ->where('invoices.invoice_no',$id)
+    						  ->get();
+
+    	return view('admin.invoice.approveInvoiceForm',$allData);		   
+    }
 }
