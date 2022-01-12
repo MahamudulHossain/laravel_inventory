@@ -13,7 +13,7 @@
       </div>
         <div class="x_content">
         	@if(session()->has('message'))
-                <div class="alert alert-success alert-dismissible " role="alert">
+                <div class="alert alert-danger alert-dismissible " role="alert">
                     {{session('message')}}
                   </div>
               @endif
@@ -37,7 +37,9 @@
 							<td colspan="3"><strong>Description: </strong>{{$data->description}}</td>
 						</tr>
 					</table>
-					<table border="1" width="100%" class="mt-3" style="line-height:30px">
+					<form action="{{url('storeApproveInvoice',$data->invoice_no)}}" method="post">
+						@csrf
+						<table border="1" width="100%" class="mt-3" style="line-height:30px">
 						<thead>
 							<tr class="text-center">
 								<th>SL.</th>
@@ -53,6 +55,9 @@
 							<?php $subTotal=0;?>
 							@foreach($details as $key=>$val)
 								<tr class="text-center">
+									<input type="hidden" name="category_id[]" value="{{$val->catID}}">
+									<input type="hidden" name="product_id[]" value="{{$val->proID}}">
+									<input type="hidden" name="selling_qty[{{$val->inDId}}]" value="{{$val->sQuan}}">
 									<td>{{$key+1}}</td>
 									<?php 
 										$catNm = App\Models\Categories::where('id',$val->catID)->first()->name;
@@ -91,6 +96,8 @@
 								</tr>
 						</tbody>
 					</table>
+					<button type="submit" class="btn btn-success mt-3">Approve Invoice</button>
+					</form>
 		  		</div>
               </div>
           </div>

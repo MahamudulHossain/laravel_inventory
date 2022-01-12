@@ -136,10 +136,37 @@ class InvoiceController extends Controller
     	$allData['details'] = DB::table('invoices') 
     						  ->join('invoice_details','invoice_details.invoice_id','=','invoices.invoice_no')
     						  ->join('payments','payments.invoice_id','=','invoices.invoice_no')
-    						  ->select('invoice_details.category_id as catID','invoice_details.product_id as proID','invoice_details.selling_qty as sQuan','invoice_details.unit_price as uPrice','invoice_details.selling_price as sPrice','payments.paid_amount as pAmount','payments.due_amount as dueAmount','payments.total_amount as tAmount','payments.discount_amount as disAmount')
+    						  ->select('invoice_details.id as inDId','invoice_details.category_id as catID','invoice_details.product_id as proID','invoice_details.selling_qty as sQuan','invoice_details.unit_price as uPrice','invoice_details.selling_price as sPrice','payments.paid_amount as pAmount','payments.due_amount as dueAmount','payments.total_amount as tAmount','payments.discount_amount as disAmount')
     						  ->where('invoices.invoice_no',$id)
     						  ->get();
 
     	return view('admin.invoice.approveInvoiceForm',$allData);		   
+    }
+
+    public function storeApproveInvoice(Request $req,$id){
+    	foreach($req->selling_qty as $key=>$val){
+    		$invoice_details = InvoiceDetail::where('id',$key)->first();
+    		$product = Products::where('id',$invoice_details->product_id)->first();
+    		if($product->quantity < $invoice_details->selling_qty){
+    			$req->session()->flash('message','Out of stock');
+    			return redirect()->back();
+    		}
+    	}
+    	$invoice = Invoice::where('invoice_no',$id)->first();
+    	$invoice->status = '1';
+    	$invoice->updated_by = $req->session()->get('ADMIN_ID');
+    	DB::transaction(function() use($req,$id,$invoice) {
+    		foreach($req->selling_qty as $key=>$val){
+	    		$invoice_details = InvoiceDetail::where('id',$key)->first();
+	    		$invoice_details->status = '1';
+	    		$invoice_details->save();
+	    		$product = Products::where('id',$invoice_details->product_id)->first();
+	    		$product->quantity = $product->quantity - $invoice_details->selling_qty;
+	    		$product->save();
+    		}
+    		$invoice->save();
+    	});
+    	$req->session()->flash('message','Invoice approved successfully');
+    			return redirect('/approve_invoice');
     }
 }
