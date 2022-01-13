@@ -40,62 +40,62 @@
 					<form action="{{url('storeApproveInvoice',$data->invoice_no)}}" method="post">
 						@csrf
 						<table border="1" width="100%" class="mt-3" style="line-height:30px">
-						<thead>
-							<tr class="text-center">
-								<th>SL.</th>
-								<th>Category</th>
-								<th>Product Name</th>
-								<th style="background-color: #ddd;">Current Stock</th>
-								<th>Puchase Quantity</th>
-								<th>Unit Price</th>
-								<th>Total Price</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php $subTotal=0;?>
-							@foreach($details as $key=>$val)
+							<thead>
 								<tr class="text-center">
-									<input type="hidden" name="category_id[]" value="{{$val->catID}}">
-									<input type="hidden" name="product_id[]" value="{{$val->proID}}">
-									<input type="hidden" name="selling_qty[{{$val->inDId}}]" value="{{$val->sQuan}}">
-									<td>{{$key+1}}</td>
-									<?php 
-										$catNm = App\Models\Categories::where('id',$val->catID)->first()->name;
-									?>
-									<td>{{$catNm}}</td>
-									<?php 
-										$proNm = App\Models\Products::where('id',$val->proID)->first();
-									?>
-									<td>{{$proNm->name}}</td>
-									<td>{{$proNm->quantity}}</td>
-									<td>{{$val->sQuan}}</td>
-									<td>{{$val->uPrice}}</td>
-									<td>{{$val->sPrice}}</td>
+									<th>SL.</th>
+									<th>Category</th>
+									<th>Product Name</th>
+									<th style="background-color: #ddd;">Current Stock</th>
+									<th>Puchase Quantity</th>
+									<th>Unit Price</th>
+									<th>Total Price</th>
 								</tr>
-								<?php $subTotal += $val->sPrice;?>
-							@endforeach	
-								<tr>
-									<td colspan="6" class="text-right"><b>Subtotal</b></td>
-									<td class="text-center"><b>{{$subTotal}}/-</b></td>
-								</tr>
-								<tr>
-									<td colspan="6" class="text-right"><b>Discount</b></td>
-									<td class="text-center"><b>{{$val->disAmount}}/-</b></td>
-								</tr>
-								<tr>
-									<td colspan="6" class="text-right"><b>Subtotal</b></td>
-									<td class="text-center"><b>{{$val->tAmount}}/-</b></td>
-								</tr>
-								<tr>
-									<td colspan="6" class="text-right"><b>Paid Amount</b></td>
-									<td class="text-center"><b>{{$val->pAmount}}/-</b></td>
-								</tr>
-								<tr>
-									<td colspan="6" class="text-right"><b>Due Amount</b></td>
-									<td class="text-center"><b>{{$val->dueAmount}}/-</b></td>
-								</tr>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<?php $subTotal=0;?>
+								@foreach($details as $key=>$val)
+									<tr class="text-center">
+										<input type="hidden" name="category_id[]" value="{{$val->catID}}">
+										<input type="hidden" name="product_id[]" value="{{$val->proID}}">
+										<input type="hidden" name="selling_qty[{{$val->inDId}}]" value="{{$val->sQuan}}">
+										<td>{{$key+1}}</td>
+										<?php 
+											$catNm = App\Models\Categories::where('id',$val->catID)->first()->name;
+										?>
+										<td>{{$catNm}}</td>
+										<?php 
+											$proNm = App\Models\Products::where('id',$val->proID)->first();
+										?>
+										<td>{{$proNm->name}}</td>
+										<td>{{$proNm->quantity}}</td>
+										<td>{{$val->sQuan}}</td>
+										<td>{{$val->uPrice}}</td>
+										<td>{{$val->sPrice}}</td>
+									</tr>
+									<?php $subTotal += $val->sPrice;?>
+								@endforeach	
+									<tr>
+										<td colspan="6" class="text-right"><b>Subtotal</b></td>
+										<td class="text-center"><b>{{$subTotal}}/-</b></td>
+									</tr>
+									<tr>
+										<td colspan="6" class="text-right"><b>Discount</b></td>
+										<td class="text-center"><b>{{$val->disAmount}}/-</b></td>
+									</tr>
+									<tr>
+										<td colspan="6" class="text-right"><b>Subtotal</b></td>
+										<td class="text-center"><b>{{$val->tAmount}}/-</b></td>
+									</tr>
+									<tr>
+										<td colspan="6" class="text-right"><b>Paid Amount</b></td>
+										<td class="text-center"><b>{{$val->pAmount}}/-</b></td>
+									</tr>
+									<tr>
+										<td colspan="6" class="text-right"><b>Due Amount</b></td>
+										<td class="text-center"><b>{{$val->dueAmount}}/-</b></td>
+									</tr>
+							</tbody>
+						</table>
 					<button type="submit" class="btn btn-success mt-3">Approve Invoice</button>
 					</form>
 		  		</div>

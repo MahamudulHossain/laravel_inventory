@@ -84,8 +84,7 @@ Route::get('/invoice_form',[InvoiceController::class,'add_form']);
 Route::get('get-stoke',[AjaxController::class,'getStoke']);
 Route::post('store_invoice',[InvoiceController::class,'invoiceStore']);
 Route::get('/delInvoice/{id}',[InvoiceController::class,'delete']);
-
-
+Route::get('/printInvoice/{id}',[InvoiceController::class,'generate_pdf']);
 
 
 });

@@ -29,6 +29,7 @@
 	                      <th>Date</th>
 	                      <th>Description</th>
 	                      <th>Amount</th>
+	                      <th>Action</th>
 	                    </tr>
 	                  </thead>
 
@@ -41,6 +42,9 @@
 		                    	<td>{{date('d-m-Y',strtotime($data->date))}}</td>
 		                    	<td>{{$data->description}}</td>
 		                    	<td>{{$data->total_amount}}</td>
+		                    	<td>
+		                    		<a href="{{url('/printInvoice',$data->invoice_no)}}"><button class="btn btn-sm btn-primary">Print</button></a>
+		                    	</td>
 	                    	</tr>
 	                    @endforeach	
 	                  </tbody>
