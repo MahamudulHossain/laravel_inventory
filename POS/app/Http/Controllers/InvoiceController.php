@@ -184,4 +184,20 @@ class InvoiceController extends Controller
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
     }
+
+    public function generate_invoice_report(){
+        return view('admin.invoice.invoiceReport');
+    }
+
+    public function generate_invoice_report_pdf(Request $req){
+        $start_date = date('Y-m-d',strtotime($req->sDate));
+        $end_date = date('Y-m-d',strtotime($req->eDate));
+        $allData['data'] = Invoice::whereBetween('date',[$start_date,$end_date])->where('status','1')->get();
+        $allData['start_date'] = $start_date;
+        $allData['end_date'] = $end_date;
+        $pdf = PDF::loadView('admin.pdf.invoiceReportPdf', $allData);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+
+    }
 }

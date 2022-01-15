@@ -96,6 +96,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{url('view_invoice')}}">Invoice List</a></li>
                       <li><a href="{{url('approve_invoice')}}">Approval</a></li>
+                      <li><a href="{{url('report_invoice')}}">Invoice Report</a></li>
                     </ul>
                   </li>
                 </ul>
