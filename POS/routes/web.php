@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +88,11 @@ Route::get('/delInvoice/{id}',[InvoiceController::class,'delete']);
 Route::get('/printInvoice/{id}',[InvoiceController::class,'generate_pdf']);
 Route::get('/report_invoice',[InvoiceController::class,'generate_invoice_report']);
 Route::get('/invoiceReportPdf',[InvoiceController::class,'generate_invoice_report_pdf']);
+
+//Stocks
+Route::get('/view_stock',[StockController::class,'viewStock']);
+Route::get('/download-stock-report',[StockController::class,'downloadStockReport']);
+
 
 
 });

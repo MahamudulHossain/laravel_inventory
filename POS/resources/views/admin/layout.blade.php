@@ -99,6 +99,11 @@
                       <li><a href="{{url('report_invoice')}}">Invoice Report</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-chevron-circle-right"></i> Stocks <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="{{url('view_stock')}}">Stock Report</a></li>
+                    </ul>
+                  </li>
                 </ul>
               </div>
 
