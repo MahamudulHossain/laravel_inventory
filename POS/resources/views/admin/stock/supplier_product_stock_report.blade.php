@@ -42,6 +42,23 @@
           	</form>
           	</div>
           </div>
+          <div class="row mt-5 productDiv" style="display: none">
+          	<div class="col-md-9">
+          		<form action="{{url('productWiseStock')}}" method="GET" target="_blank"> 
+          		<div class="col-md-8">
+          		<select name="productId" class="form-control" required="required"> 
+          			<option value="">Select Product Name</option>
+          			@foreach($products as $product)
+          				<option value="{{$product->id}}">{{$product->name}}</option>
+          			@endforeach
+          		</select>
+	          	</div>
+	          	<div class="col-md-4">
+	          		<button type="submit" class="btn btn-info">Create</button>
+	          	</div>
+          	</form>
+          	</div>
+          </div>
         </div>
     </div>
   </div>
@@ -55,7 +72,15 @@
 		}else{
 			$('.supplierDiv').hide();
 		}
+
+		if(data == 'product_id'){
+			$('.productDiv').show();
+		}else{
+			$('.productDiv').hide();
+		}
 	});
+
+
 </script>
 
 @endsection

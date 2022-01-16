@@ -94,6 +94,7 @@ Route::get('/view_stock',[StockController::class,'viewStock']);
 Route::get('/download-stock-report',[StockController::class,'downloadStockReport']);
 Route::get('/supplier-product_stock',[StockController::class,'supplier_product_stock']);
 Route::get('/supplierWiseStock',[StockController::class,'supplierWiseStockPdf']);
+Route::get('/productWiseStock',[StockController::class,'productWiseStockPdf']);
 
 
 
