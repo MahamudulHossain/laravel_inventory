@@ -102,6 +102,7 @@
                   <li><a><i class="fa fa-chevron-circle-right"></i> Stocks <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('view_stock')}}">Stock Report</a></li>
+                      <li><a href="{{url('supplier-product_stock')}}">Supplier/Product Based</a></li>
                     </ul>
                   </li>
                 </ul>

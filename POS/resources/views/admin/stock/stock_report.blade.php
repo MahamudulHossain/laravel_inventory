@@ -1,6 +1,6 @@
 @extends('admin.layout')
 
-@section('title','Stoke Report')
+@section('title','Stock Report')
 
 @section('content')
 

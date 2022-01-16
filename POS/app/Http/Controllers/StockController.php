@@ -36,4 +36,22 @@ class StockController extends Controller
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
     }
+
+    public function supplier_product_stock(){
+    	$allData['suppliers'] = Suppliers::all();
+    	return view('admin.stock.supplier_product_stock_report',$allData);
+    }
+
+    public function supplierWiseStockPdf(Request $req){
+    	$result['data'] = DB::table('products')
+         		->leftJoin('suppliers','suppliers.id' ,'=','products.supplier_id')
+         		->leftJoin('categories','categories.id' ,'=','products.category_id')
+         		->leftJoin('units','units.id' ,'=','products.unit_id')
+         		->select('products.*','suppliers.name as sname','categories.name as catname','units.name as uname')
+        		->where('products.supplier_id',$req->supplierId)
+        		->get();	
+    	$pdf = PDF::loadView('admin.pdf.supplierWiseStockPdf', $result);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+    }
 }
