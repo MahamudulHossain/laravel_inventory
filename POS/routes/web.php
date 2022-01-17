@@ -52,6 +52,8 @@ Route::get('/delCustomer/{id}',[CustomersController::class,'delete']);
 Route::get('/editCustomer/{id}',[CustomersController::class,'edit_form']);
 Route::post('updateCustomer/{id}',[CustomersController::class,'update_customer']);
 Route::get('/credit_customers',[CustomersController::class,'creditCustomers']);
+Route::get('/download-credit-customer-report',[CustomersController::class,'creditCustomerPdf']);
+
 
 
 //Units

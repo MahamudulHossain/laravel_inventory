@@ -66,4 +66,11 @@ class CustomersController extends Controller
         $data = Payment::whereIn('paid_status',['due','partital_paid'])->get();
         return view('admin.customers.credit_customer',compact('data'));
     }
+
+    public function creditCustomerPdf(){
+        $data = Payment::whereIn('paid_status',['due','partital_paid'])->get();
+        $pdf = PDF::loadView('admin.pdf.creditCustomerPdf', compact('data'));
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream('document.pdf');
+    }
 }
