@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Customers;
 use Illuminate\Http\Request;
+use App\Models\Payment;
+use Illuminate\Support\Facades\DB;
+use PDF;
 
 class CustomersController extends Controller
 {
@@ -57,5 +60,10 @@ class CustomersController extends Controller
         $supp->save();
         $req->session()->flash('message','Customer Updated Successfully');
         return redirect('/view_customers');
+    }
+
+    public function creditCustomers(){
+        $data = Payment::whereIn('paid_status',['due','partital_paid'])->get();
+        return view('admin.customers.credit_customer',compact('data'));
     }
 }

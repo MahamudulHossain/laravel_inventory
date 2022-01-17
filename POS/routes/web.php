@@ -51,6 +51,9 @@ Route::post('addCustomer',[CustomersController::class,'add_customer']);
 Route::get('/delCustomer/{id}',[CustomersController::class,'delete']);
 Route::get('/editCustomer/{id}',[CustomersController::class,'edit_form']);
 Route::post('updateCustomer/{id}',[CustomersController::class,'update_customer']);
+Route::get('/credit_customers',[CustomersController::class,'creditCustomers']);
+
+
 //Units
 Route::get('/view_units',[UnitsController::class,'show']);
 Route::post('addUnit',[UnitsController::class,'add_unit']);
