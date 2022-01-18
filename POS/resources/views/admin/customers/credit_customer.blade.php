@@ -42,8 +42,8 @@
 	                    	<td>{{date('d-m-Y',strtotime($invDate->date))}}</td>
 	                    	<td>{{$data->due_amount}}</td>
 	                    	<td>
-	                    		<a href="{{url('update-credir-customer',[$data->invoice_id,$cusData->id])}}"><button class="btn btn-sm btn-info">Edit</button></a>
-	                    		<a href=""><button class="btn btn-sm btn-primary">Details</button></a>
+	                    		<a href="{{url('update-credit-customer',[$data->invoice_id,$cusData->id])}}"><button class="btn btn-sm btn-info">Edit</button></a>
+	                    		<a href="{{url('customar-credit-details',[$data->invoice_id,$cusData->id])}}" target="_blank"><button class="btn btn-sm btn-primary">Details</button></a>
 	                    	</td>
 	                    </tr>
 	                    @endforeach
