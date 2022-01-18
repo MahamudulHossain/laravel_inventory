@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Customers;
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Models\PaymentDetail;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -72,5 +73,46 @@ class CustomersController extends Controller
         $pdf = PDF::loadView('admin.pdf.creditCustomerPdf', compact('data'));
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
         return $pdf->stream('document.pdf');
+    }
+
+    public function update_credit_customer($invoiceID,$cusID){
+        $allData['cutomerData'] = Customers::where('id',$cusID)->first();
+        $allData['invoice_no'] = $invoiceID;
+        $allData['details'] = DB::table('invoices') 
+                              ->join('invoice_details','invoice_details.invoice_id','=','invoices.invoice_no')
+                              ->join('payments','payments.invoice_id','=','invoices.invoice_no')
+                              ->select('invoice_details.id as inDId','invoice_details.category_id as catID','invoice_details.product_id as proID','invoice_details.selling_qty as sQuan','invoice_details.unit_price as uPrice','invoice_details.selling_price as sPrice','payments.paid_amount as pAmount','payments.due_amount as dueAmount','payments.total_amount as tAmount','payments.discount_amount as disAmount')
+                              ->where('invoices.invoice_no',$invoiceID)
+                              ->get();
+
+        return view('admin.customers.update_credit_customer',$allData);
+    }
+
+    public function store_credit_customer(Request $req, $invoiceNo){
+        $payment = Payment::where('invoice_id',$invoiceNo)->first();
+        if($payment->due_amount < $req->paid_amount){
+            $req->session()->flash('msg','Paid amount can never be greater than due amount');
+                return redirect()->back();
+        }else{
+            $payment_details = new PaymentDetail;
+            if($req->paid_status == 'paid'){
+                $payment->paid_amount = Payment::where('invoice_id',$invoiceNo)->first()['paid_amount'] + $req->due_amount;
+                $payment->due_amount = 0;
+                $payment->paid_status = 'paid';
+                $payment_details->current_paid_amount = $req->due_amount;
+            }else{
+                $payment->paid_amount = Payment::where('invoice_id',$invoiceNo)->first()['paid_amount'] + $req->paid_amount;
+                $payment->due_amount = $req->due_amount - $req->paid_amount;
+                $payment_details->current_paid_amount = $req->paid_amount;
+            }
+            $payment->save();
+            $payment_details->invoice_id = $invoiceNo;
+            $payment_details->date = $req->date;
+            $payment_details->updated_by = $req->session()->get('ADMIN_ID');
+            $payment_details->save();
+
+            $req->session()->flash('message','Customer credit updated successfully');
+            return redirect('/credit_customers');
+        }
     }
 }
