@@ -70,6 +70,7 @@
                   <li><a><i class="fa fa-desktop"></i> Customers <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{url('view_customers')}}">View Customers</a></li>
+                      <li><a href="{{url('paid_customers')}}">Paid Customers</a></li>
                       <li><a href="{{url('credit_customers')}}">Credit Customers</a></li>
                     </ul>
                   </li>

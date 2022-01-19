@@ -56,6 +56,9 @@ Route::get('/download-credit-customer-report',[CustomersController::class,'credi
 Route::get('update-credit-customer/{inId}/{csId}',[CustomersController::class,'update_credit_customer']);
 Route::post('store-credit-customer/{id}',[CustomersController::class,'store_credit_customer']);
 Route::get('customar-credit-details/{inId}/{csId}',[CustomersController::class,'customar_credit_customer']);
+Route::get('/paid_customers',[CustomersController::class,'paidCustomers']);
+Route::get('/paid_customer_pdf/{inId}/{csId}',[CustomersController::class,'paidCustomerPdf']);
+
 
 
 //Units
