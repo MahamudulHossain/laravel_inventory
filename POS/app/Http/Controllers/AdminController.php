@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Customers;
+use App\Models\Categories;
+use App\Models\Products;
+use App\Models\Suppliers;
+use App\Models\Invoice;
+
 
 class AdminController extends Controller
 {
@@ -44,7 +50,12 @@ class AdminController extends Controller
 
 
     public function dashboard(){
-        return view('admin.dashboard');
+        $info['total_users'] = Customers::where('status','1')->count('id');
+        $info['total_categories'] = Categories::count('id');
+        $info['total_products'] = Products::where('status','1')->count('id');
+        $info['total_suppliers'] = Suppliers::where('status','1')->count('id');
+        $info['total_invoices'] = Invoice::where('status','1')->count('id');
+        return view('admin.dashboard',$info);
     }
 
     
